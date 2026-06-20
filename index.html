@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang='zh'>
+<meta http-equiv='content-type' content='text/html;charset=utf-8'/><!-- /Added by HTTrack -->
+<head>
+    <meta charSet='utf-8'/>
+    <title>神智易手——智能双向手语翻译系统</title>
+    <meta name='description' content='A gift for people who use sign language.'/>
+    <meta name='viewport' content='width=device-width, initial-scale=1'/>
+    <link rel='icon' href='small_logo.jpg'/>
+    <meta name='next-head-count' content='5'/>
+    <link data-next-font='size-adjust' rel='preconnect' href='index.html' crossorigin='anonymous'/>
+    <link rel='preload' href='_next/static/css/df396e51b7911497.css' as='style'/>
+    <link rel='stylesheet' href='_next/static/css/df396e51b7911497.css' data-n-g=''/>
+    <link rel='preload' href='_next/static/css/e03028f18e67ee8b.css' as='style'/>
+    <link rel='stylesheet' href='_next/static/css/e03028f18e67ee8b.css' data-n-p=''/>
+    <link rel='preload' href='_next/static/css/a7af7696501396e0.css' as='style'/>
+    <link rel='stylesheet' href='_next/static/css/a7af7696501396e0.css' data-n-p=''/>
+    <noscript data-n-css=''></noscript>
+    <style>
+        /* ===== 所有样式都限定在 .app-container 内部 ===== */
+
+        /* 重置样式仅对 .app-container 内部生效 */
+        .app-container,
+        .app-container * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        /* 卡片容器 - 独立模块，不影响外部 */
+        .app-container {
+            /*width: 100%;*/
+            /*max-width: 520px;*/
+            /*height: 100%;*/
+            /*max-height: 780px;*/
+            width: 550px;
+            height: 600px;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 24px 20px 32px;
+            margin-top: 80px;
+            margin-left: 170px;
+            float: left;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+            transition: all 0.2s;
+            /* 确保内部字体继承 */
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        /* 顶部标题 */
+        .app-container .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .app-container .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .app-container .header .badge {
+            font-size: 12px;
+            color: #888;
+            background: #f0f0f5;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        /* 搜索框 */
+        .app-container .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .app-container .search-box input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1.5px solid #e8ecf1;
+            border-radius: 30px;
+            font-size: 15px;
+            outline: none;
+            background: #fafbfc;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .app-container .search-box input:focus {
+            border-color: #4f7cff;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.12);
+        }
+
+        .app-container .search-box input::placeholder {
+            color: #b0b8c4;
+        }
+
+        /* 创建词条按钮 */
+        .app-container .btn-create {
+            padding: 12px 20px;
+            background: #4f7cff;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .app-container .btn-create:hover {
+            background: #3a66e0;
+            transform: scale(0.97);
+        }
+
+        .app-container .btn-create:active {
+            transform: scale(0.94);
+        }
+
+        /* 词条列表 */
+        .app-container .entry-list {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 460px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .app-container .entry-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .app-container .entry-list::-webkit-scrollbar-thumb {
+            background: #d0d5dd;
+            border-radius: 10px;
+        }
+
+        /* 单个词条卡片 */
+        .app-container .entry-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fc;
+            padding: 14px 18px;
+            border-radius: 16px;
+            border: 1px solid transparent;
+            transition: 0.15s;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .app-container .entry-item:hover {
+            background: #f0f2f7;
+            border-color: #e2e6ef;
+        }
+
+        .app-container .entry-item .text {
+            font-size: 16px;
+            color: #1e1e2f;
+            word-break: break-word;
+            flex: 1;
+            margin-right: 12px;
+            line-height: 1.5;
+        }
+
+        .app-container .entry-item .voice-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 6px 8px;
+            border-radius: 30px;
+            transition: 0.15s;
+            flex-shrink: 0;
+            color: #4f7cff;
+            background: rgba(79, 124, 255, 0.08);
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: inherit;
+        }
+
+        .app-container .entry-item .voice-btn:hover {
+            background: rgba(79, 124, 255, 0.18);
+            transform: scale(1.05);
+        }
+
+        .app-container .entry-item .voice-btn:active {
+            transform: scale(0.88);
+        }
+
+        .app-container .entry-item .voice-btn.speaking {
+            color: #ff7a45;
+            background: rgba(255, 122, 69, 0.15);
+            animation: pulse 0.9s infinite;
+        }
+
+        /* 空状态 */
+        .app-container .empty-state {
+            text-align: center;
+            color: #b8bfcc;
+            font-size: 15px;
+            padding: 50px 0 30px;
+        }
+
+        .app-container .empty-state span {
+            font-size: 42px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* 动画 - 限定在 .app-container 内 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* 底部小提示 */
+        .app-container .footer-tip {
+            margin-top: 18px;
+            font-size: 12px;
+            color: #b5bcc9;
+            text-align: center;
+            border-top: 1px solid #edf0f5;
+            padding-top: 16px;
+        }
+
+        /* 清除浮动，防止影响外部布局 */
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* ===== 手语识别模块样式 ===== */
+        .app-container-sign {
+            width: 640px;
+            height: 520px;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 24px 20px 32px;
+            float: none;
+            margin-top: 80px;
+            margin-left: 25%;
+            margin-bottom: 5px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .app-container-sign .sign-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .app-container-sign .sign-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .app-container-sign .sign-header .status-badge {
+            font-size: 12px;
+            padding: 4px 14px;
+            border-radius: 20px;
+            padding-bottom: 20px;
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .app-container-sign .sign-header .status-badge.inactive {
+            background: #fce4ec;
+            color: #c62828;
+        }
+
+        .app-container-sign #signVideo {
+            width: 100%;
+            max-width: 600px;
+            height: 340px;
+            border-radius: 16px;
+            background: #1a1a2e;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .app-container-sign .sign-controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .app-container-sign .sign-controls button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .app-container-sign .sign-controls .btn-start {
+            background: #4f7cff;
+            color: white;
+        }
+        .app-container-sign .sign-controls .btn-start:hover {
+            background: #3a66e0;
+            transform: scale(0.97);
+        }
+
+        .app-container-sign .sign-controls .btn-start:disabled {
+            background: #b0b8c4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .app-container-sign .sign-controls .btn-stop {
+            background: #ff7a45;
+            color: white;
+        }
+        .app-container-sign .sign-controls .btn-stop:hover {
+            background: #e06630;
+            transform: scale(0.97);
+        }
+
+        .app-container-sign .sign-result {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a2e;
+            min-height: 36px;
+        }
+
+        .app-container-sign .sign-result .confidence {
+            font-size: 14px;
+            font-weight: 400;
+            color: #888;
+        }
+
+        .app-container-sign .sign-footer-tip {
+            margin-top: 12px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #b5bcc9;
+            text-align: center;
+            border-top: 1px solid #edf0f5;
+            padding-top: 12px;
+        }
+
+        /* 清除浮动 */
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<div id='__next'>
+    <div style="font-family:'__Noto_Sans_SC_8d39da', '__Noto_Sans_SC_Fallback_8d39da'; font-weight:400; font-style:normal">
+        <div class='Home_header__GCVRv'>
+            <div class='Home_headerWrapper__snn3z'><img src='my_logo_2.jpg' alt='logo'  style="width: 165px; height: auto; margin-left: 100px; margin-bottom: 3px;"/>
+                <div class='Home_nav__vYbrQ'><a href='#section2'>研发初衷</a><a href='#section3'>功能介绍</a><a
+                        href='#section4'>使用介绍</a><a href='#section6'>场景应用</a><a href='#section7'>联系我们</a>
+                </div>
+            </div>
+        </div>
+        <main class='Home_page__0ydta'>
+            <div class='Home_pageWrapper__hYdPM'>
+                <section id='section1' class='Home_section1__FOhJw'>
+                    <div class='Home_section1left__ollCt' style="margin-left: -80px; margin-top: 100px;">
+<!--                        <div class='Home_section1slogan__OZgHa'> • 实时手语AI翻译</div>-->
+                        <div class='Home_section1mainTitle__brgKz'><span>神智易手</span></div>
+                        <div class='Home_section1mainTitle__brgKz'><span style="white-space: nowrap;">智能双向手语翻译系统</span></div>
+                        <div class='Home_section1intro__wbfRd'><span>We aspire to offer the hearing impaired the means</span>
+                            <span>communicate instantly with one another.</span>
+                        </div>
+<!--                        <div class='Home_section1button__Ush34'>查看详情 ↓</div>-->
+                    </div>
+                    <div class='Home_section1right__zwte5'><img src='A.png' alt='section1'
+                                                                style="width: 700px; height: auto; margin-left: 300px; margin-top: -50px;"/></div>
+                </section>
+                <section id='section2' class='Home_section2__rQRvq'>
+                    <div class='Home_section2title__vr4Zd'>研发初衷</div>
+                    <div class='Home_section2subTitle__CYDPY'>神智易手，让每个聋哑人都有平等交流的可能！</div>
+                    <img class='Home_section2image__5d2c7' style="width: 1500px; height: auto;" src='B.png'/>
+                    <div class='Home_section2card__pAtEl' style="margin-top: 20px">
+                        <div class='Home_section2innerCard__VDYp1'><span class='Home_section2innerCardNumber__aj3lx'>95%+</span><span
+                                class='Home_section2innerCardText__sF9yf'>无障碍化率</span></div>
+                        <div class='Home_section2innerCard__VDYp1'><span class='Home_section2innerCardNumber__aj3lx'>1400万+</span><span
+                                class='Home_section2innerCardText__sF9yf'>听障人士</span></div>
+                        <div class='Home_section2innerCard__VDYp1'><span class='Home_section2innerCardNumber__aj3lx'>15.8%</span><span
+                                class='Home_section2innerCardText__sF9yf'>听障人士占比</span></div>
+                    </div>
+                </section>
+                <section id='section3' class='Home_section3__3aGMT'>
+                    <div class='Home_section3title__nPhrd'>使用介绍</div>
+                    <div class='Home_section3subTitle__fKu9A'>语言，文字，手语双向实时互译</div>
+                    <img class='Home_section3image__MyeUO' src='C.png' style="width: 1350px; height: auto;"/>
+                </section>
+                <section id='section3.1' class='Home_section3__3aGMT'>
+                    <div class='Home_section3title__nPhrd'>语音功能</div>
+                    <div class='Home_section3subTitle__fKu9A'>语言，文字，手语双向实时互译</div>
+                    <div style="display: block; width: 100%;">
+                        <div class="clearfix">
+                            <div class="app-container">
+                                <!-- 头部 -->
+                                <div class="header">
+                                    <h1>📖 语音备忘录</h1>
+                                    <span class="badge" id="countBadge">0 条</span>
+                                </div>
+
+                                <!-- 搜索 + 创建 -->
+                                <div class="search-box">
+                                    <input type="text" id="searchInput" placeholder="🔍 搜索词条..." />
+                                    <button class="btn-create" id="createBtn">+ 创建</button>
+                                </div>
+                                <!-- 词条列表 -->
+                                <div class="entry-list" id="entryList">
+                                    <div class="empty-state">
+                                        <span>📭</span>
+                                        还没有词条，点击 “创建” 添加吧
+                                    </div>
+                                </div>
+                                <div class="footer-tip">
+                                    🔊 点击 🔊 按钮朗读词条 · 实时搜索
+                                </div>
+                            </div>
+                            <img class='Home_section4rightCardImage1'
+                                 src='wordCloud_gif.gif' alt='' style="margin-top: 80px; border-radius: 28px; margin-left: 20px; width: 550px; height: 600px;"/></div>
+                    </div>
+                </section>
+                <!-- ===== 手语识别模块 ===== -->
+                <section id='section3.2' class='Home_section3__3aGMT'>
+                    <div class='Home_section3title__nPhrd'>手语识别</div>
+                    <div class='Home_section3subTitle__fKu9A'>通过摄像头实时识别手语手势</div>
+                    <div style="display: block; width: 100%;">
+                        <div class="clearfix">
+                            <div class="app-container-sign">
+                                <div class="sign-header">
+                                    <h2>🤟 实时手语识别</h2>
+                                    <span class="status-badge inactive" id="signStatus">未启动</span>
+                                </div>
+                                <video id="signVideo" autoplay playsinline></video>
+                                <div class="sign-result" id="signResult">
+                                    <span>等待识别...</span>
+                                    <span class="confidence"></span>
+                                </div>
+                                <div class="sign-controls">
+                                    <button class="btn-start" id="btnStartCamera">📷 启动摄像头</button>
+                                    <button class="btn-stop" id="btnStopCamera" style="display:none;">⏹ 停止识别</button>
+                                </div>
+                                <div class="sign-footer-tip">💡 请将手部完整放入画面，保持光线充足</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                <section id='section4' class='Home_section4__Vuclz'>
+                    <div class='Home_section4left__MSAKu'>
+                        <div class='Home_section4leftTitle__Uu3_L'>软件功能介绍</div>
+                        <!-- 四个功能卡片 -->
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 50px 20px;">
+
+                            <!-- 卡片1：翻译 -->
+                            <div style="text-align: center;">
+                                <!-- 图标 -->
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#4a90d9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 15px;">
+                                    <path d="M5 8h14M8 3v5M16 3v5M4 12h16M8 16h8M12 21v-5"/>
+                                    <path d="M12 16l-3-3 3-3"/>
+                                </svg>
+                                <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 10px; color: #333;">翻译</h3>
+                                <p style="font-size: 14px; color: #888; line-height: 1.5;">为日常沟通提供多场景文字，手语，语言互译</p>
+                            </div>
+
+                            <!-- 卡片2：词典 -->
+                            <div style="text-align: center;">
+                                <!-- 图标 -->
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#e84393" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 15px;">
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                                    <path d="M12 8v8M8 12h8"/>
+                                </svg>
+                                <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 10px; color: #333;">词典</h3>
+                                <p style="font-size: 14px; color: #888; line-height: 1.5;">提供标准版及八大方言区<br/>词典查询</p>
+                            </div>
+
+                            <!-- 卡片3：备忘录 -->
+                            <div style="text-align: center;">
+                                <!-- 图标 -->
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#20bf6b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 15px;">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                    <line x1="16" y1="13" x2="8" y2="13"/>
+                                    <line x1="16" y1="17" x2="8" y2="17"/>
+                                    <polyline points="10 9 9 9 8 9"/>
+                                </svg>
+                                <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 10px; color: #333;">备忘录</h3>
+                                <p style="font-size: 14px; color: #888; line-height: 1.5;">语料存储与日常备忘</p>
+                            </div>
+
+                            <!-- 卡片4：其他 -->
+                            <div style="text-align: center;">
+                                <!-- 图标 -->
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#f9a826" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 15px;">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="8" x2="12" y2="12"/>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                </svg>
+                                <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 10px; color: #333;">其他</h3>
+                                <p style="font-size: 14px; color: #888; line-height: 1.5;">应急通话</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class='Home_section4right__kNERp'>
+                        <div class='Home_section4rightCard__ZhUcb'><img class='Home_section4rightCardImage__f0V2d'
+                                                                        src='section4.gif' alt=''/></div>
+                        <div class='Home_section4ellipse__eZGro'></div>
+                    </div>
+                </section>
+                <section id='section5' class='Home_section5__gKsQb'><img class='Home_section5image__PB3Kq'
+                                                                         src='my_logo_2.jpg' alt=''/>
+                    <div class='Home_section5title__n6XLn'>产品介绍视频</div>
+                    <div class='Home_section5subTitle__BVXdN'>我们将用一个视频演示向您介绍神智易手，感谢您的观看</div>
+                    <div class='Home_section5videoWrapper__MIPNc'>
+                        <video class='Home_section5video__Cn9T_' src='video.mp4' controls='' preload='auto'
+                               poster='video.jpg'></video>
+                        <div class='Home_section5ellipse__AT7_i'></div>
+                    </div>
+                </section>
+                <section id='section6' class='Home_section6__8x5oG'>
+                    <div class='Home_section6title__axjCe'>应用场景分布</div>
+                    <div class='Home_section6imageGroup__OyxfD'>
+                        <div class='Home_section6imageWrapper__EMY84'><img class='Home_section6image__W6R6b'
+                                                                           src='D.jpg' style="width: 345px; height: auto;" alt=''/>
+                            <div class='Home_section6card__HtaPD'>
+                                <div class='Home_section6cardTitle__K0G4T'>个人日常沟通</div>
+                                <div class='Home_section6cardIntro__JqsD8'>Seamless daily communication for everyone, anytime, anywhere.
+                                </div>
+                            </div>
+                        </div>
+                        <div class='Home_section6imageWrapper__EMY84'><img class='Home_section6image__W6R6b'
+                                                                           src='E.jpg' style="width: 345px; height: auto;" alt=''/>
+                            <div class='Home_section6card__HtaPD'>
+                                <div class='Home_section6cardTitle__K0G4T'>企业工作协助</div>
+                                <div class='Home_section6cardIntro__JqsD8'>Empower teamwork with real-time sign language support in the workplace.
+                                </div>
+                            </div>
+                        </div>
+                        <div class='Home_section6imageWrapper__EMY84'><img class='Home_section6image__W6R6b'
+                                                                           src='F.jpg' style="width: 345px; height: auto;" alt=''/>
+                            <div class='Home_section6card__HtaPD'>
+                                <div class='Home_section6cardTitle__K0G4T'>公共场景联结</div>
+                                <div class='Home_section6cardIntro__JqsD8'>Bridging communication gaps in public spaces for a more connected society.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id='section7' class='Home_section7__DTiwU'>
+                    <div class='Home_section5title__n6XLn'>关于我们</div>
+                    <div class='Home_section7card__KNj1s'  style="margin-top: 35px; padding-bottom: 50px;">
+                        <div class='Home_section7title__kT_Zq'>版本信息</div>
+                        <div class='Home_section7intro__Nrr39'><span>当前版本为1.0版本，2.0版本将于2026年底上线。</span></div>
+                        <div class='Home_section7title__kT_Zq'>联系我们</div>
+                        <div class='Home_section7intro__Nrr39'><span>1377645784@qq.com</span></div>
+                        <div class='Home_section7title__kT_Zq'>免责声明</div>
+                        <div class='Home_section7intro__Nrr39'><span>未按照本产品原样使用所出现的风险本团队<br/>概不负责</span></div>
+                        <img class='Home_section7image__ojbi7' src='G.jpg' style="width: 500px; height: auto; margin-bottom: 200px" alt=''/></div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+<!--<script id='__NEXT_DATA__' type='application/json'>{-->
+<!--    "props": {-->
+<!--        "pageProps": {}-->
+<!--    },-->
+<!--    "page": "/",-->
+<!--    "query": {},-->
+<!--    "buildId": "SN5Oln1b5NtZc8Qp5nPm4",-->
+<!--    "nextExport": true,-->
+<!--    "autoExport": true,-->
+<!--    "isFallback": false,-->
+<!--    "scriptLoader": []-->
+<!--}</script>-->
+<script>
+    (function() {
+        'use strict';
+
+        // --- DOM 引用 ---
+        const entryList = document.getElementById('entryList');
+        const searchInput = document.getElementById('searchInput');
+        const createBtn = document.getElementById('createBtn');
+        const countBadge = document.getElementById('countBadge');
+
+        // --- 数据 ---
+        let entries = [
+            '全面建成小康社会，残疾人一个也不能少',
+            '没单子',
+            '中午吃啥',
+            '您的单子送到了',
+            '你好，今天过的怎么样',
+            '好的，我知道怎么回事了',
+            '我今天想吃饺子了'
+        ];
+
+        let searchKeyword = '';
+        let currentUtterance = null;
+        let speakingText = null;
+
+        // --- 核心：渲染列表 ---
+        function render() {
+            const keyword = searchKeyword.trim().toLowerCase();
+            let filtered = entries;
+            if (keyword) {
+                filtered = entries.filter(text =>
+                    text.toLowerCase().includes(keyword)
+                );
+            }
+
+            countBadge.textContent = entries.length + ' 条';
+            entryList.innerHTML = '';
+
+            if (filtered.length === 0) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.className = 'empty-state';
+                emptyDiv.innerHTML = `<span>🔍</span> 没有匹配的词条`;
+                entryList.appendChild(emptyDiv);
+                return;
+            }
+
+            filtered.forEach((text) => {
+                const item = document.createElement('div');
+                item.className = 'entry-item';
+
+                const textSpan = document.createElement('span');
+                textSpan.className = 'text';
+                textSpan.textContent = text;
+
+                const voiceBtn = document.createElement('button');
+                voiceBtn.className = 'voice-btn';
+                voiceBtn.textContent = '🔊';
+                voiceBtn.setAttribute('aria-label', '朗读此词条');
+
+                if (speakingText === text) {
+                    voiceBtn.classList.add('speaking');
+                }
+
+                voiceBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    handleSpeak(text, voiceBtn);
+                });
+
+                item.appendChild(textSpan);
+                item.appendChild(voiceBtn);
+                entryList.appendChild(item);
+            });
+        }
+
+        // --- 语音朗读核心 ---
+        function handleSpeak(text, btnElement) {
+            if (!window.speechSynthesis) {
+                alert('很抱歉，您的浏览器不支持语音朗读功能。请使用 Chrome、Edge 或 Safari。');
+                return;
+            }
+
+            if (currentUtterance && speakingText === text) {
+                window.speechSynthesis.cancel();
+                currentUtterance = null;
+                speakingText = null;
+                document.querySelectorAll('.voice-btn').forEach(b => b.classList.remove('speaking'));
+                return;
+            }
+
+            if (currentUtterance) {
+                window.speechSynthesis.cancel();
+                currentUtterance = null;
+                speakingText = null;
+                document.querySelectorAll('.voice-btn').forEach(b => b.classList.remove('speaking'));
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 1.0;
+            utterance.pitch = 1.0;
+            utterance.volume = 1;
+
+            const voices = window.speechSynthesis.getVoices();
+            const zhVoice = voices.find(v => v.lang.startsWith('zh'));
+            if (zhVoice) {
+                utterance.voice = zhVoice;
+            }
+
+            speakingText = text;
+            currentUtterance = utterance;
+
+            document.querySelectorAll('.voice-btn').forEach(b => b.classList.remove('speaking'));
+            if (btnElement) {
+                btnElement.classList.add('speaking');
+            }
+
+            function cleanup() {
+                currentUtterance = null;
+                speakingText = null;
+                document.querySelectorAll('.voice-btn').forEach(b => b.classList.remove('speaking'));
+            }
+
+            utterance.onend = cleanup;
+            utterance.onerror = (event) => {
+                if (event.error !== 'canceled') {
+                    cleanup();
+                } else {
+                    cleanup();
+                }
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // --- 创建新词条 ---
+        function createEntry() {
+            const text = prompt('请输入新词条的内容：');
+            if (text === null) return;
+            const trimmed = text.trim();
+            if (!trimmed) {
+                alert('词条内容不能为空！');
+                return;
+            }
+            entries.push(trimmed);
+            searchInput.value = '';
+            searchKeyword = '';
+            render();
+            entryList.scrollTop = entryList.scrollHeight;
+        }
+
+        // --- 搜索事件 ---
+        function onSearch(e) {
+            searchKeyword = e.target.value;
+            render();
+        }
+
+        // --- 初始化 ---
+        function initSpeech() {
+            if (window.speechSynthesis) {
+                const dummy = new SpeechSynthesisUtterance(' ');
+                dummy.volume = 0;
+                window.speechSynthesis.speak(dummy);
+                setTimeout(() => {
+                    window.speechSynthesis.cancel();
+                }, 50);
+            }
+        }
+
+        // --- 绑定事件 ---
+        createBtn.addEventListener('click', createEntry);
+        searchInput.addEventListener('input', onSearch);
+
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                createEntry();
+            }
+        });
+
+        render();
+        initSpeech();
+
+        if (window.speechSynthesis) {
+            window.speechSynthesis.onvoiceschanged = () => {};
+        }
+
+        window.__debug = { entries, render, createEntry };
+    })();
+</script>
+
+<!-- ===== 加载本地 MediaPipe 库 ===== -->
+<script src="libs/mediapipe/vision_bundle.js"></script>
+
+<script>
+    (function() {
+        'use strict';
+
+        // ---- DOM 引用 ----
+        const videoElement = document.getElementById('signVideo');
+        const resultElement = document.getElementById('signResult');
+        const statusBadge = document.getElementById('signStatus');
+        const btnStart = document.getElementById('btnStartCamera');
+        const btnStop = document.getElementById('btnStopCamera');
+
+        // ---- 创建 Canvas 覆盖层 ----
+        const canvas = document.createElement('canvas');
+        canvas.width = 640;
+        canvas.height = 480;
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.pointerEvents = 'none';
+        const videoWrapper = videoElement.parentElement;
+        videoWrapper.style.position = 'relative';
+        videoWrapper.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+
+        let gestureRecognizer = null;
+        let handLandmarker = null;
+        let isRunning = false;
+        let lastLandmarks = null;
+
+        // ---- 手势标签映射 ----
+        const GESTURE_DICT = {
+            'ai': '爱',
+            'bei_jing': '北京',
+            'chi_fan': '吃饭',
+            'da_jia': '大家',
+            'dong_che': '动车',
+            'fei_ji': '飞机',
+            'gan_zhe': '甘蔗',
+            'gong_jiao_che': '公交车',
+            'hao': '好',
+            'jiao_liu': '交流',
+            'jiao_zi': '饺子',
+            'jiu': '酒',
+            'ka_fei': '咖啡',
+            'kan_shu': '看书',
+            'ke_neng': '可能',
+            'long': '龙',
+            'mei': '美',
+            'ni_hao': '你好',
+            'none': '无手势',
+            'ping_deng': '平等',
+            'qing_nian': '青年',
+            'rang': '让',
+            'ren': '人',
+            'shang_ke': '上课',
+            'shui': '睡',
+            'ta': '他',
+            'wo': '我',
+            'xia_ci': '下次',
+            'xie_xie': '谢谢',
+            'xing_ming': '姓名',
+            'xue_sheng': '学生',
+            'you': '有',
+            'zai_jian': '再见'
+        };
+
+        function getChineseName(pinyin) {
+            return GESTURE_DICT[pinyin] || pinyin;
+        }
+
+        // ---- 手部关节点连接关系 ----
+        const HAND_CONNECTIONS = [
+            [0, 1], [1, 2], [2, 3], [3, 4],
+            [0, 5], [5, 6], [6, 7], [7, 8],
+            [0, 9], [9, 10], [10, 11], [11, 12],
+            [0, 13], [13, 14], [14, 15], [15, 16],
+            [0, 17], [17, 18], [18, 19], [19, 20],
+            [5, 9], [9, 13], [13, 17]
+        ];
+
+        // ---- 绘制手部关节（支持两只手，不同颜色） ----
+        function drawHandLandmarks(landmarks, handIndex) {
+            if (!landmarks || landmarks.length === 0) return;
+
+            const w = canvas.width;
+            const h = canvas.height;
+
+            // 根据手索引选择颜色：第一只手绿色，第二只手橙色
+            const mainColor = handIndex === 0 ? '#00ff88' : '#ff8800';
+            const dotColor = handIndex === 0 ? '#ffffff' : '#ffff00';
+
+            // 1. 绘制骨骼线
+            ctx.strokeStyle = mainColor;
+            ctx.lineWidth = 2.5;
+
+            for (const [i, j] of HAND_CONNECTIONS) {
+                const p1 = landmarks[i];
+                const p2 = landmarks[j];
+                if (p1 && p2) {
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x * w, p1.y * h);
+                    ctx.lineTo(p2.x * w, p2.y * h);
+                    ctx.stroke();
+                }
+            }
+
+            // 2. 绘制关节点
+            const colors = [
+                '#ff6b6b', '#ffd93d', '#ffd93d', '#ffd93d', '#ffd93d',
+                '#6bcbff', '#6bcbff', '#6bcbff', '#6bcbff',
+                '#6bff6b', '#6bff6b', '#6bff6b', '#6bff6b',
+                '#ff6bff', '#ff6bff', '#ff6bff', '#ff6bff',
+                '#ff9f43', '#ff9f43', '#ff9f43', '#ff9f43'
+            ];
+
+            for (let i = 0; i < landmarks.length; i++) {
+                const lm = landmarks[i];
+                ctx.beginPath();
+                ctx.arc(lm.x * w, lm.y * h, 5, 0, 2 * Math.PI);
+                ctx.fillStyle = colors[i] || dotColor;
+                ctx.fill();
+                ctx.strokeStyle = '#000000';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+
+        // ---- 检查 vision 是否加载 ----
+        function isVisionReady() {
+            return typeof window.vision !== 'undefined' &&
+                typeof window.vision.FilesetResolver !== 'undefined' &&
+                typeof window.vision.GestureRecognizer !== 'undefined' &&
+                typeof window.vision.HandLandmarker !== 'undefined';
+        }
+
+        // ---- 等待 vision 就绪 ----
+        function waitForVision(callback, maxAttempts) {
+            maxAttempts = maxAttempts || 200;
+            let attempts = 0;
+
+            if (isVisionReady()) {
+                callback();
+                return;
+            }
+
+            const checkInterval = setInterval(() => {
+                attempts++;
+                if (isVisionReady()) {
+                    clearInterval(checkInterval);
+                    console.log('✅ vision 库就绪');
+                    callback();
+                } else if (attempts >= maxAttempts) {
+                    clearInterval(checkInterval);
+                    console.error('❌ vision 库加载超时');
+                    resultElement.innerHTML = '<span style="color:#c62828;">⚠️ 模型库加载失败，请刷新页面重试</span>';
+                }
+            }, 100);
+        }
+
+        // ---- 加载模型 ----
+        async function loadModel() {
+            try {
+                const vision = window.vision;
+                const FilesetResolver = vision.FilesetResolver;
+                const GestureRecognizer = vision.GestureRecognizer;
+                const HandLandmarker = vision.HandLandmarker;
+
+                const wasmPath = 'libs/mediapipe/wasm';
+
+                const resolver = await FilesetResolver.forVisionTasks(wasmPath);
+
+                const modelPath = 'my_15_gestures.task';
+
+                // 1. 加载手势识别器（支持两只手）
+                gestureRecognizer = await GestureRecognizer.createFromOptions(resolver, {
+                    baseOptions: {
+                        modelAssetPath: modelPath,
+                    },
+                    runningMode: 'VIDEO',
+                    numHands: 2,  // ✅ 改为2，支持两只手
+                    minHandDetectionConfidence: 0.5,
+                    minHandPresenceConfidence: 0.5,
+                    minTrackingConfidence: 0.5,
+                });
+
+                // 2. 加载手部关键点检测器（支持两只手）
+                const handLandmarkerOptions = {
+                    baseOptions: {
+                        modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task'
+                    },
+                    runningMode: 'VIDEO',
+                    numHands: 2,  // ✅ 改为2，支持两只手
+                    minHandDetectionConfidence: 0.5,
+                    minHandPresenceConfidence: 0.5,
+                    minTrackingConfidence: 0.5,
+                };
+
+                handLandmarker = await HandLandmarker.createFromOptions(resolver, handLandmarkerOptions);
+
+                console.log('✅ 手势识别模型加载成功！');
+                console.log('✅ 手部关键点检测器加载成功！');
+                resultElement.innerHTML = '<span>🤟 模型已加载，请将手放入画面</span><span class="confidence"></span>';
+                return true;
+            } catch (error) {
+                console.error('❌ 加载模型失败:', error);
+                resultElement.innerHTML = '<span style="color:#c62828;">⚠️ 模型加载失败: ' + error.message + '</span>';
+                return false;
+            }
+        }
+
+        // ---- 预测函数（支持两只手） ----
+        function predict() {
+            if (!gestureRecognizer || !handLandmarker || !isRunning) return;
+
+            try {
+                const timestamp = performance.now();
+
+                // 1. 手部关键点检测（用于绘制关节）
+                const landmarkResult = handLandmarker.detectForVideo(videoElement, timestamp);
+
+                // 清空画布
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                if (landmarkResult.landmarks && landmarkResult.landmarks.length > 0) {
+                    // ✅ 遍历所有检测到的手（支持两只手）
+                    for (let handIndex = 0; handIndex < landmarkResult.landmarks.length; handIndex++) {
+                        const handLandmarks = landmarkResult.landmarks[handIndex];
+                        drawHandLandmarks(handLandmarks, handIndex);
+                    }
+                    lastLandmarks = landmarkResult.landmarks;
+                } else {
+                    lastLandmarks = null;
+                }
+
+                // 2. 手势识别（显示两只手的识别结果）
+                const gestureResult = gestureRecognizer.recognizeForVideo(videoElement, timestamp);
+
+                if (gestureResult.gestures && gestureResult.gestures.length > 0) {
+                    // ✅ 显示所有检测到的手势
+                    let displayText = '';
+                    for (let i = 0; i < Math.min(gestureResult.gestures.length, 2); i++) {
+                        const gesture = gestureResult.gestures[i][0];
+                        const pinyin = gesture.categoryName;
+                        const chinese = getChineseName(pinyin);
+                        const score = (gesture.score * 100).toFixed(1);
+                        if (i > 0) displayText += ' | ';
+                        displayText += `${chinese} (${score}%)`;
+                    }
+                    resultElement.innerHTML = `
+                        <span>${displayText}</span>
+                        <span class="confidence"></span>
+                    `;
+                } else {
+                    resultElement.innerHTML = `<span>🤔 未检测到手势</span><span class="confidence"></span>`;
+                }
+
+                if (isRunning) {
+                    requestAnimationFrame(predict);
+                }
+            } catch (error) {
+                console.warn('识别错误:', error);
+                if (isRunning) {
+                    requestAnimationFrame(predict);
+                }
+            }
+        }
+
+        // ---- 启动摄像头 ----
+        async function startCamera() {
+            try {
+                if (!isVisionReady()) {
+                    resultElement.innerHTML = '<span>⏳ 正在加载模型库...</span><span class="confidence"></span>';
+                    await new Promise((resolve, reject) => {
+                        waitForVision(resolve, 200);
+                        setTimeout(reject, 20000, new Error('等待 vision 超时'));
+                    });
+                }
+
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { width: 640, height: 480, facingMode: 'user' }
+                });
+                videoElement.srcObject = stream;
+
+                await new Promise((resolve) => {
+                    videoElement.onloadedmetadata = () => {
+                        videoElement.play();
+                        resolve();
+                    };
+                });
+
+                const loaded = await loadModel();
+                if (!loaded) {
+                    stopCamera();
+                    return;
+                }
+
+                isRunning = true;
+                btnStart.style.display = 'none';
+                btnStop.style.display = 'inline-block';
+                statusBadge.textContent = '识别中';
+                statusBadge.className = 'status-badge';
+
+                requestAnimationFrame(predict);
+
+            } catch (error) {
+                console.error('摄像头启动失败:', error);
+                if (error.name === 'NotAllowedError') {
+                    alert('请允许浏览器访问摄像头后重试。');
+                } else {
+                    alert('启动失败: ' + error.message);
+                }
+                resultElement.innerHTML = '<span style="color:#c62828;">⚠️ 启动失败，请重试</span>';
+            }
+        }
+
+        // ---- 停止识别 ----
+        function stopCamera() {
+            isRunning = false;
+
+            if (videoElement.srcObject) {
+                videoElement.srcObject.getTracks().forEach(track => track.stop());
+                videoElement.srcObject = null;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            lastLandmarks = null;
+
+            btnStart.style.display = 'inline-block';
+            btnStop.style.display = 'none';
+            statusBadge.textContent = '已停止';
+            statusBadge.className = 'status-badge inactive';
+            resultElement.innerHTML = '<span>等待识别...</span><span class="confidence"></span>';
+        }
+
+        // ---- 绑定事件 ----
+        btnStart.addEventListener('click', startCamera);
+        btnStop.addEventListener('click', stopCamera);
+
+        window.addEventListener('beforeunload', function() {
+            stopCamera();
+            if (gestureRecognizer) {
+                gestureRecognizer.close();
+            }
+            if (handLandmarker) {
+                handLandmarker.close();
+            }
+        });
+
+        console.log('🤟 手语识别模块初始化完成');
+
+        if (isVisionReady()) {
+            console.log('✅ vision 库已就绪');
+        } else {
+            console.log('⏳ 等待 vision 库加载...');
+            waitForVision(() => {
+                console.log('✅ vision 库加载完成');
+            }, 300);
+        }
+
+    })();
+</script>
+</body>
+</html>
